@@ -1,4 +1,4 @@
-# react-morph-svg-follower
+# react-svg-mouse-follower
 
 A morphing SVG circle that follows your mouse
 
@@ -7,11 +7,31 @@ A morphing SVG circle that follows your mouse
 ## Install
 
 ```bash
-npm install react-morph-svg-follower
+npm install react-svg-mouse-follower
 ```
 
 ## Usage
 
+```jsx
+import * as React from 'react'
+import MouseFollower from 'react-svg-mouse-follower'
+
+const Component = () => {
+    return (
+        <MouseFollower/>
+        ...
+    )
+}
+```
+
+| Argument    | Type        | Default  | Description                                            |
+| ----------- | ------------| -------- | ------------------------------------------------------ |
+| disable     | boolean     | false    | Whether or not the scroll effect will be enabled       |
+| trailLength | number      |   40     | How much the circle would extends                      |
+| radius      | number      |   60     | The radius of the circle                               |
+
+
+
 ## License
 
-MIT © [John Roussos](https://github.com/JRoussos)
+[MIT](LICENSE)
