@@ -8,7 +8,7 @@ import { gsap } from 'gsap';
  * @param trailLength   How much the circle would extends
  * @param radius        The radius of the circle 
  */
-const MorphingMouse = ({ disable=false, trailLength=40, radius=60 }) => {
+const MouseFollower = ({ disable=false, trailLength=40, radius=60 }) => {
     const {current: mousePreviousPosition} = useRef({x: 0, y: 0})
     const {current: mouseCurrentPosition}  = useRef({x: 0, y: 0})
 
@@ -82,4 +82,4 @@ const MorphingMouse = ({ disable=false, trailLength=40, radius=60 }) => {
     )
 }
 
-export default MorphingMouse
+export default MouseFollower
