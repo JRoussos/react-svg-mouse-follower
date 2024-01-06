@@ -1,6 +1,6 @@
 {
-    "name": "react-morph-svg-follower",
-    "version": "1.0.0",
+    "name": "react-svg-mouse-follower",
+    "version": "1.0.1",
     "description": "A morphing SVG circle that follows your mouse",
     "author": {
         "name": "John Roussos",
@@ -8,8 +8,8 @@
         "url": "https://johnroussos.dev/"
     },
     "license": "MIT",
-    "repository": "github:JRoussos/react-morph-svg-follower",
-    "homepage": "https://github.com/JRoussos/react-morph-svg-follower",
+    "repository": "github:JRoussos/react-svg-mouse-follower",
+    "homepage": "https://github.com/JRoussos/react-svg-mouse-follower",
     "main": "dist/index.js",
     "module": "dist/index.modern.js",
     "source": "src/index.js",
@@ -18,10 +18,8 @@
     },
     "keywords": [
         "svg",
-        "morph svg follower",
-        "mouse follower",
         "react",
-        "react hook"
+        "svg mouse follower"
     ],
     "scripts": {
         "build": "microbundle-crl --no-compress --format modern,cjs",
