@@ -1,6 +1,13 @@
 import React, { useRef, useLayoutEffect, useCallback, useMemo } from 'react';
 import { gsap } from 'gsap';
 
+/**
+ * Creates an SVG rect element that follows your mouse.
+ * 
+ * @param disable       Whether or not the scroll effect will be enabled.
+ * @param trailLength   How much the circle would extends
+ * @param radius        The radius of the circle 
+ */
 const MorphingMouse = ({ disable=false, trailLength=40, radius=60 }) => {
     const {current: mousePreviousPosition} = useRef({x: 0, y: 0})
     const {current: mouseCurrentPosition}  = useRef({x: 0, y: 0})
