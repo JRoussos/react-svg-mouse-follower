@@ -2,7 +2,7 @@
 
 A morphing SVG circle that follows your mouse
 
-[![NPM](https://img.shields.io/npm/v/react-morph-svg-follower.svg)](https://www.npmjs.com/package/react-morph-svg-follower) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/react-svg-mouse-follower.svg)](https://www.npmjs.com/package/react-svg-mouse-follower) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
