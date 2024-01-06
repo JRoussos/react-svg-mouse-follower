@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+       "target": "es5",
+       "allowJs": true,
+       "module": "commonjs",
+       "declaration": true,
+       "outDir": "./output"
+     },
+    "include": [
+      "src/index.js"
+    ],
+  }
