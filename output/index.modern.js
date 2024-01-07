@@ -33,7 +33,7 @@ var MouseFollower = function MouseFollower(_ref) {
       corner: radius / 2
     };
   }, [radius]);
-  var onTick = useCallback(function () {
+  var render = useCallback(function () {
     var getRotation = function getRotation(x, y) {
       return Math.atan2(y, x) * 180 / Math.PI;
     };
@@ -46,7 +46,7 @@ var MouseFollower = function MouseFollower(_ref) {
     quickSet.y(mouseCurrentPosition.y);
     quickSet.width(radius + distance);
     quickSet.rotate(rotation);
-  }, []);
+  }, [radius, trailLength]);
   var handleMouseLeave = function handleMouseLeave(event) {
     event.stopPropagation();
     isMouseOffScreen.current = true;
@@ -84,18 +84,22 @@ var MouseFollower = function MouseFollower(_ref) {
     });
   };
   useLayoutEffect(function () {
+    if (disable) {
+      isMouseOffScreen.current = true;
+      return gsap.ticker.remove(render);
+    }
     quickSet.x = gsap.quickSetter('#cursor', 'x', 'px');
     quickSet.y = gsap.quickSetter('#cursor', 'y', 'px');
     quickSet.rotate = gsap.quickSetter('#cursor', 'rotate', 'deg');
     quickSet.width = gsap.quickSetter('#rect', 'width');
-    gsap.ticker.add(onTick);
-    document.documentElement.addEventListener('mousemove', handleMouseMove);
-    document.documentElement.addEventListener('mouseleave', handleMouseLeave);
+    gsap.ticker.add(render);
+    document.body.addEventListener('mousemove', handleMouseMove);
+    document.body.addEventListener('mouseleave', handleMouseLeave);
     return function () {
-      document.documentElement.removeEventListener('mousemove', handleMouseMove);
-      document.documentElement.removeEventListener('mouseleave', handleMouseLeave);
+      document.body.removeEventListener('mousemove', handleMouseMove);
+      document.body.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [onTick, handleMouseMove, handleMouseLeave]);
+  }, [disable, render, handleMouseMove, handleMouseLeave]);
   return disable ? null : /*#__PURE__*/React.createElement("svg", {
     id: "cursor",
     width: "220",

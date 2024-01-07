@@ -10,14 +10,14 @@ import { gsap } from 'gsap';
  */
 const MouseFollower = ({ disable=false, trailLength=40, radius=60 }) => {
     const {current: mousePreviousPosition} = useRef({x: 0, y: 0})
-    const {current: mouseCurrentPosition}  = useRef({x: 0, y: 0})
+    const {current: mouseCurrentPosition } = useRef({x: 0, y: 0})
 
     const {current: quickSet} = useRef({x: null, y: null, rotate: null, scaleX: null, scaleY: null})
     
     const isMouseOffScreen = useRef(true)
     const rect = useMemo(() => ({ coords: 110 - radius/2, corner: radius/2 }), [radius])
     
-    const onTick = useCallback(() => {
+    const render = useCallback(() => {
         const getRotation = (x, y) => Math.atan2(y, x) * 180 / Math.PI // return the angle converted in degrees from radians
         const getDistance = (x, y) => Math.min(Math.sqrt(x*x + y*y), trailLength) // return the distance between the x and y value of the previous position 
 
@@ -29,7 +29,7 @@ const MouseFollower = ({ disable=false, trailLength=40, radius=60 }) => {
 
         quickSet.width(radius + distance)
         quickSet.rotate(rotation)
-    }, [])
+    }, [radius, trailLength])
 
     const handleMouseLeave = event => {
         event.stopPropagation()
@@ -57,23 +57,28 @@ const MouseFollower = ({ disable=false, trailLength=40, radius=60 }) => {
     }
 
     useLayoutEffect(() => {
+        if (disable) {
+            isMouseOffScreen.current = true
+            return gsap.ticker.remove(render)
+        }
+
         quickSet.x = gsap.quickSetter('#cursor', 'x', 'px')
         quickSet.y = gsap.quickSetter('#cursor', 'y', 'px')
 
         quickSet.rotate = gsap.quickSetter('#cursor', 'rotate', 'deg')
         quickSet.width  = gsap.quickSetter('#rect', 'width')
 
-        gsap.ticker.add(onTick)
+        gsap.ticker.add(render)
         
-        document.documentElement.addEventListener('mousemove', handleMouseMove)
-        document.documentElement.addEventListener('mouseleave', handleMouseLeave)
+        document.body.addEventListener('mousemove', handleMouseMove)
+        document.body.addEventListener('mouseleave', handleMouseLeave)
 
         return () => {
-            document.documentElement.removeEventListener('mousemove', handleMouseMove)
-            document.documentElement.removeEventListener('mouseleave', handleMouseLeave)                
+            document.body.removeEventListener('mousemove', handleMouseMove)
+            document.body.removeEventListener('mouseleave', handleMouseLeave)
         }
 
-    }, [onTick, handleMouseMove, handleMouseLeave])
+    }, [disable, render, handleMouseMove, handleMouseLeave])
 
     return disable ? null : (
         <svg id="cursor" width="220" height="220" viewBox="0 0 220 220" fill="none" style={{ position: 'fixed', top: '-109px', left: '-109px', opacity: 0, pointerEvents: 'none', willChange: 'transform', mixBlendMode: 'difference', zIndex: 200 }}>
